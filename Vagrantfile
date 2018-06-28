@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "centos/7"
+  config.vm.box = "centos/6"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -56,8 +56,8 @@ Vagrant.configure("2") do |config|
     vb.gui = false
 
     # Customize the amount of memory on the VM:
-    vb.memory = "8192"
-    vb.cpus = "4"
+    vb.memory = "4096"
+    vb.cpus = "2"
   end
 
   if Vagrant.has_plugin?("vagrant-proxyconf")
@@ -79,5 +79,10 @@ Vagrant.configure("2") do |config|
   # config.vm.provision "ansible_local" do |ansible|
   #   ansible.playbook = "site.yml"
   # end
+  config.vm.provision "file", source: "~/projects/camelspeed/vagrant-vms/files/apache-maven-3.5.4-bin.tar.gz", destination: "$HOME/apache-maven-3.5.4-bin.tar.gz"
+  config.vm.provision "file", source: "~/projects/camelspeed/vagrant-vms/files/.bash_profile", destination: "$HOME/.bash_profile"
+  config.vm.provision "file", source: "~/projects/camelspeed/vagrant-vms/files/.bashrc", destination: "$HOME/.bashrc"
+  config.vm.provision "file", source: "~/projects/camelspeed/vagrant-vms/files/git-completion.bash", destination: "$HOME/git-completion.bash"
+  config.vm.provision "file", source: "~/projects/camelspeed/vagrant-vms/files/git-prompt.sh", destination: "$HOME/git-prompt.sh"
   config.vm.provision "shell", path: "install-tools.sh"
 end
